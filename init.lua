@@ -92,6 +92,7 @@ vim.g.have_nerd_font = true
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 
+
 vim.opt.nu = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -109,6 +110,9 @@ vim.opt.undofile = true
 vim.opt.termguicolors = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+
+vim.g.have_nerd_font = true
+
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -132,7 +136,9 @@ vim.opt.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 --vim.schedule(function()
+
 --vim.opt.clipboard = 'unnamedplus'
+
 --end)
 
 -- Enable break indent
@@ -177,6 +183,9 @@ vim.opt.scrolloff = 15
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.opt.confirm = true
+
+vim.opt.smartindent = true
+vim.opt.signcolumn = 'yes'
 
 vim.opt.isfname:append '@-@'
 vim.opt.colorcolumn = '80'
@@ -226,6 +235,7 @@ vim.keymap.set('x', '<leader>p', [["_dP]])
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
+
 --vim.keymap.set('n', '<C-K>', '<cmd>cnext<CR>zz')
 --vim.keymap.set('n', '<C-J>', '<cmd>cprev<CR>zz')
 vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
@@ -234,6 +244,7 @@ vim.keymap.set('t', '<C-a>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>a', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set('i', '<C-a>', '<Esc>')
 --vim.keymap.set("i", "<Esc>", "<C-\\><C-n>")
+
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -1012,7 +1023,9 @@ require('lazy').setup({
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
+
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymap
+
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
