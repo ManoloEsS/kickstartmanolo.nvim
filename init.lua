@@ -173,7 +173,7 @@ vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.smartindent = true
---vim.o.autoindent = true
+-- vim.o.autoindent = false
 vim.o.wrap = false
 vim.o.swapfile = false
 vim.o.backup = false
@@ -184,6 +184,15 @@ vim.o.hlsearch = false
 vim.o.incsearch = true
 vim.opt.isfname:append '@-@'
 vim.opt.colorcolumn = '80'
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
+      vim.cmd("checktime")
+    end
+  end,
+})
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -213,16 +222,16 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<leader>i', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<leader>o', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<Tab-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<Tab-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+--vim.keymap.set("n", "<Tab-h>", "<C-w>H", { desc = "Move window to the left" })
+--vim.keymap.set("n", "<Tab-l>", "<C-w>L", { desc = "Move window to the right" })
+--vim.keymap.set("n", "<Tab-j>", "<C-w>J", { desc = "Move window to the lower" })
+--vim.keymap.set("n", "<Tab-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Primeagen keymaps
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
@@ -930,7 +939,7 @@ require('lazy').setup({
       require('tokyonight').setup {
         styles = {
           comments = { italic = false },
-          floats = "transparent",
+          floats = 'transparent',
           -- Disable italics in comments
         },
       }
@@ -998,7 +1007,7 @@ require('lazy').setup({
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby', 'python' } },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
