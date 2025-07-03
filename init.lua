@@ -159,7 +159,7 @@ vim.o.inccommand = 'split'
 vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 15
+vim.o.scrolloff = 10
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -183,13 +183,12 @@ vim.o.termguicolors = true
 vim.o.hlsearch = false
 vim.o.incsearch = true
 vim.opt.isfname:append '@-@'
-vim.opt.colorcolumn = '80'
 vim.opt.autoread = true
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*",
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*',
   callback = function()
-    if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
-      vim.cmd("checktime")
+    if vim.fn.expand '%' ~= '' and vim.bo.buftype == '' then
+      vim.cmd 'checktime'
     end
   end,
 })
@@ -538,7 +537,43 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          notification = {
+            window = {
+              winblend = 0, -- 0 = fully opaque, terminal handles transparency
+              border = 'none', -- Optional: remove border
+              zindex = 45,
+              max_width = 0,
+              max_height = 0,
+              x_padding = 1,
+              y_padding = 0,
+              align = 'bottom',
+              relative = 'editor',
+            },
+          },
+        },
+        config = function(_, opts)
+          require('fidget').setup(opts)
+
+          -- Override highlight groups to be transparent
+          local transparent_groups = {
+            'FidgetTitle',
+            'FidgetTask',
+            'NormalFloat',
+            'FloatBorder',
+          }
+
+          for _, group in ipairs(transparent_groups) do
+            vim.api.nvim_set_hl(0, group, {
+              bg = 'NONE',
+              ctermbg = 'NONE',
+            })
+          end
+        end,
+      },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -937,9 +972,11 @@ require('lazy').setup({
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
+        transparent = true,
         styles = {
           comments = { italic = false },
           floats = 'transparent',
+          sidebars = 'transparent',
           -- Disable italics in comments
         },
       }

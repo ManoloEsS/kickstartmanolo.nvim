@@ -12,8 +12,8 @@ return {
         ft = 'fterm_custom',
         cmd = vim.o.shell,
         dimensions = {
-          height = 0.4, -- 40% of window height
-          width = 0.6, -- 60% of window width
+          height = 0.6, -- 40% of window height
+          width = 0.5, -- 60% of window width
           x = 0.95, -- 5% margin from right
           y = 0.95, -- 5% margin from bottom
         },
