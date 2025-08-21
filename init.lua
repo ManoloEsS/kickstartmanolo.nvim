@@ -221,16 +221,16 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<leader>i', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<leader>o', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<Tab-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<Tab-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<A-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<A-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<A-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
---vim.keymap.set("n", "<Tab-h>", "<C-w>H", { desc = "Move window to the left" })
---vim.keymap.set("n", "<Tab-l>", "<C-w>L", { desc = "Move window to the right" })
---vim.keymap.set("n", "<Tab-j>", "<C-w>J", { desc = "Move window to the lower" })
---vim.keymap.set("n", "<Tab-k>", "<C-w>K", { desc = "Move window to the upper" })
+--vim.keymap.set("n", "<A-Left>", "<C-w>H", { desc = "Move window to the left" })
+--vim.keymap.set("n", "<A-Right>", "<C-w>L", { desc = "Move window to the right" })
+--vim.keymap.set("n", "<A-Down>", "<C-w>J", { desc = "Move window to the lower" })
+--vim.keymap.set("n", "<A-Up>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Primeagen keymaps
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
@@ -1101,6 +1101,10 @@ require('lazy').setup({
     },
   },
 })
+
+-- Then add highlight overrides for transparent suggestions
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'PmenuSel', { bg = 'none', blend = 10 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
