@@ -22,7 +22,7 @@
 
 What is Kickstart?
 
-  Kickstart.nvim is *not* a distribution.
+  Kickstart.nvim is *not* a distribution
 
   Kickstart.nvim is a starting point for your own configuration.
     The goal is that you can read every line of code, top-to-bottom, understand
@@ -819,6 +819,35 @@ require('lazy').setup({
           end,
         },
       }
+    end,
+
+    init = function()
+      local group = vim.api.nvim_create_augroup('GoAutoImport', { clear = true })
+
+      -- Organize imports + format on save
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = group,
+        pattern = '*.go',
+        callback = function()
+          vim.lsp.buf.format { async = false }
+          vim.lsp.buf.code_action {
+            context = { only = { 'source.organizeImports' } },
+            apply = true,
+          }
+        end,
+      })
+
+      -- Organize imports when leaving insert mode
+      vim.api.nvim_create_autocmd('InsertLeave', {
+        group = group,
+        pattern = '*.go',
+        callback = function()
+          vim.lsp.buf.code_action {
+            context = { only = { 'source.organizeImports' } },
+            apply = true,
+          }
+        end,
+      })
     end,
   },
 
