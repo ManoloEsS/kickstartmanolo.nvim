@@ -1,4 +1,0 @@
-[33ma8248f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
-[33mdbe6226[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: commit: added auto imports for golang and lsp hover windows and completion for go and rust
-[33ma8248f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{2}: commit: changed settings
-[33m3fa24cb[m HEAD@{3}: clone: from https://github.com/ManoloEsS/kickstartmanolo.nvim.git
