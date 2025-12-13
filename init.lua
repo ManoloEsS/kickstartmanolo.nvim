@@ -251,8 +251,42 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
 vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 vim.keymap.set('t', '<C-a>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>a', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<leader>a', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]])
 vim.keymap.set('i', '<C-a>', '<Esc>')
+-- Step 1: Load all files of same type into args (without moving)
+vim.keymap.set('n', '<leader>ra', function()
+  local ext = vim.fn.expand '%:e'
+  local current_file = vim.fn.expand '%:p'
+  local view = vim.fn.winsaveview()
+
+  local files = vim.fn.systemlist(string.format('find . -name "*.%s" -type f', ext))
+  vim.cmd('args ' .. table.concat(files, ' '))
+
+  -- Return to the original file and position
+  vim.cmd('edit ' .. vim.fn.fnameescape(current_file))
+  vim.fn.winrestview(view)
+
+  print(string.format('Loaded %d . %s files into args', #files, ext))
+end, { desc = 'Load all files with same extension into args' })
+
+-- Step 2: Replace word under cursor across args
+vim.keymap.set('n', '<leader>rp', function()
+  -- Set the search register to highlight matches
+  vim.fn.setreg('/', '\\<' .. vim.fn.expand '<cword>' .. '\\>')
+  vim.cmd 'set hlsearch'
+
+  -- Feed the argdo command
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes(
+      [[:argdo %s/\<<C-r><C-w>\>//gc | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+      true,
+      false,
+      true
+    ),
+    'n',
+    false
+  )
+end, { desc = 'Replace word under cursor in args' })
 
 --vim.keymap.set("i", "<Esc>", "<C-\\><C-n>")
 -- [[ Basic Autocommands ]]
@@ -1142,6 +1176,15 @@ require('lazy').setup({
 -- Then add highlight overrides for transparent suggestions
 vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'PmenuSel', { bg = 'none', blend = 10 })
+
+-- Custom comment and line number colors for better visibility
+-- vim.api.nvim_set_hl(0, 'Comment', { fg = '#828bb8' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#737aa2' })
+-- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#9d9deb' })
+-- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#869bf4' })
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#737aa2' })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#737aa2' })
+-- vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#9d9deb' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
