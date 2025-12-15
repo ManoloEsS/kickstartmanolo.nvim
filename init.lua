@@ -150,7 +150,8 @@ vim.o.splitbelow = true
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '  ', trail = '.', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -1179,11 +1180,11 @@ vim.api.nvim_set_hl(0, 'PmenuSel', { bg = 'none', blend = 10 })
 
 -- Custom comment and line number colors for better visibility
 -- vim.api.nvim_set_hl(0, 'Comment', { fg = '#828bb8' })
-vim.api.nvim_set_hl(0, 'LineNr', { fg = '#737aa2' })
--- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#9d9deb' })
--- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#869bf4' })
-vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#737aa2' })
-vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#737aa2' })
+-- vim.api.nvim_set_hl(0, 'LineNr', { fg = '#737aa2' })
+-- -- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#9d9deb' })
+-- -- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#869bf4' })
+-- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#737aa2' })
+-- vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#737aa2' })
 -- vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#9d9deb' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
