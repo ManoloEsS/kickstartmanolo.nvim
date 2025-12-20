@@ -151,8 +151,13 @@ vim.o.splitbelow = true
 --   and `:help lua-options-guide`
 vim.o.list = true
 -- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.listchars = { tab = '  ', trail = '.', nbsp = '␣' }
-
+-- vim.opt.listchars = { tab = '  ', trail = '.', nbsp = '␣' }
+vim.opt.listchars = {
+  tab = '│ ', -- Shows vertical line for tabs
+  trail = '·', -- Shows trailing spaces
+  nbsp = '␣', -- Shows non-breaking spaces
+  leadmultispace = '│   ', -- Shows indent guides (requires Neovim 0.8+)
+}
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
@@ -252,7 +257,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
 vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 vim.keymap.set('t', '<C-a>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>a', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]])
+vim.keymap.set('n', '<leader>a', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]])
 vim.keymap.set('i', '<C-a>', '<Esc>')
 -- Step 1: Load all files of same type into args (without moving)
 vim.keymap.set('n', '<leader>ra', function()

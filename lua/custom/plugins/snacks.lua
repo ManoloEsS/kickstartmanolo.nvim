@@ -7,17 +7,38 @@ return {
     opts = {
       bigfile = { enabled = true },
       dashboard = { enabled = true },
-      explorer = {
-        enabled = true,
-        width = 25,
-      },
+      explorer = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
       notifier = {
         enabled = true,
         timeout = 3000,
       },
-      picker = { enabled = false },
+      picker = {
+        enabled = false,
+        sources = {
+          explorer = {
+            auto_close = true,
+            layout = {
+              { preview = true },
+              layout = {
+                box = 'horizontal',
+                width = 0.8,
+                height = 0.8,
+                {
+                  box = 'vertical',
+                  border = 'rounded',
+                  title = '{source} {live} {flags}',
+                  title_pos = 'center',
+                  { win = 'input', height = 1, border = 'bottom' },
+                  { win = 'list', border = 'none' },
+                },
+                { win = 'preview', border = 'rounded', width = 0.8, title = '{preview}' },
+              },
+            },
+          },
+        },
+      },
       quickfile = { enabled = true },
       scope = { enabled = false },
       scroll = { enabled = true },
