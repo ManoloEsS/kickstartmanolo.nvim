@@ -231,6 +231,7 @@ vim.keymap.set('n', '<A-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<A-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<A-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<leader>w', '<C-w>=', { desc = 'Make equal splits' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 --vim.keymap.set("n", "<A-Left>", "<C-w>H", { desc = "Move window to the left" })
@@ -258,7 +259,7 @@ vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 vim.keymap.set('t', '<C-a>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>a', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]])
-vim.keymap.set('i', '<C-a>', '<Esc>')
+-- vim.keymap.set('i', '<C-a>', '<Esc>')
 -- Step 1: Load all files of same type into args (without moving)
 vim.keymap.set('n', '<leader>ra', function()
   local ext = vim.fn.expand '%:e'
