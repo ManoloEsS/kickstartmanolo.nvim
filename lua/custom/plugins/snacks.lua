@@ -3,7 +3,6 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
       dashboard = { enabled = true },
@@ -45,13 +44,10 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
       styles = {
-        notification = {
-          -- wo = { wrap = true } -- Wrap notifications
-        },
+        notification = {},
       },
     },
     keys = {
-      -- Top Pickers & Explorer
       {
         '<leader><space>',
         function()
@@ -94,7 +90,6 @@ return {
         end,
         desc = 'File Explorer',
       },
-      -- find
       {
         '<leader>fb',
         function()
@@ -137,7 +132,6 @@ return {
         end,
         desc = 'Recent',
       },
-      -- git
       {
         '<leader>gb',
         function()
@@ -187,7 +181,6 @@ return {
         end,
         desc = 'Git Log File',
       },
-      -- Grep
       {
         '<leader>sb',
         function()
@@ -217,7 +210,6 @@ return {
         desc = 'Visual selection or word',
         mode = { 'n', 'x' },
       },
-      -- search
       {
         '<leader>s"',
         function()
@@ -238,13 +230,6 @@ return {
           Snacks.picker.autocmds()
         end,
         desc = 'Autocmds',
-      },
-      {
-        '<leader>sb',
-        function()
-          Snacks.picker.lines()
-        end,
-        desc = 'Buffer Lines',
       },
       {
         '<leader>sc',
@@ -365,7 +350,6 @@ return {
         end,
         desc = 'Colorschemes',
       },
-      -- LSP
       {
         'gd',
         function()
@@ -416,7 +400,6 @@ return {
         end,
         desc = 'LSP Workspace Symbols',
       },
-      -- Other
       {
         '<leader>z',
         function()
@@ -444,13 +427,6 @@ return {
           Snacks.scratch.select()
         end,
         desc = 'Select Scratch Buffer',
-      },
-      {
-        '<leader>n',
-        function()
-          Snacks.notifier.show_history()
-        end,
-        desc = 'Notification History',
       },
       {
         '<leader>bd',
@@ -541,16 +517,14 @@ return {
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
         callback = function()
-          -- Setup some globals for debugging (lazy-loaded)
           _G.dd = function(...)
             Snacks.debug.inspect(...)
           end
           _G.bt = function()
             Snacks.debug.backtrace()
           end
-          vim.print = _G.dd -- Override print to use snacks for `:=` command
+          vim.print = _G.dd
 
-          -- Create some toggle mappings
           Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>us'
           Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
           Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>uL'

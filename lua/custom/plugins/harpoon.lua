@@ -7,7 +7,6 @@ return {
   },
   config = function()
     local harpoon = require 'harpoon'
-    -- Basic setup
     harpoon:setup {
       settings = {
         save_on_toggle = true,
@@ -18,7 +17,6 @@ return {
       },
     }
 
-    -- Keybindings with jkl; navigation
     vim.keymap.set('n', '<leader>ha', function()
       harpoon:list():add()
     end, { desc = 'Harpoon [A]dd file' })
@@ -26,7 +24,6 @@ return {
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = 'Harpoon [M]enu' })
 
-    -- Home-row quick access (jkl; instead of numbers)
     vim.keymap.set('n', '<C-h>', function()
       harpoon:list():select(1)
     end, { desc = 'Harpoon mark 1 (j)' })
@@ -40,7 +37,6 @@ return {
       harpoon:list():select(4)
     end, { desc = 'Harpoon mark 4 (;)' })
 
-    -- Cycle through marks
     vim.keymap.set('n', '<leader>hn', function()
       harpoon:list():next()
     end, { desc = 'Harpoon [N]ext' })
@@ -48,7 +44,6 @@ return {
       harpoon:list():prev()
     end, { desc = 'Harpoon [P]revious' })
 
-    -- Telescope integration
     local conf = require('telescope.config').values
     local function toggle_telescope(harpoon_files)
       local file_paths = {}

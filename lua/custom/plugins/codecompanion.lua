@@ -7,7 +7,6 @@ return {
       {
         'github/copilot.vim',
         config = function()
-          -- Disable Copilot inline suggestions (ghost text)
           vim.g.copilot_enabled = false
         end,
       },
@@ -32,10 +31,8 @@ return {
     config = function(_, opts)
       require('codecompanion').setup(opts)
 
-      -- Keymaps (replacing CopilotChat's <leader>c bindings)
       vim.keymap.set({ 'n', 'v' }, '<leader>ca', '<cmd>CodeCompanionActions<cr>', { desc = 'CodeCompanion Actions' })
       vim.keymap.set({ 'n', 'v' }, '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { desc = 'CodeCompanion Chat' })
-      -- Inline prompt: replaces visual selection with LLM response
       vim.keymap.set('v', '<leader>cs', function()
         local input = vim.fn.input('Inline prompt: ')
         if input ~= '' then
