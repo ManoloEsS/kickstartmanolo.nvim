@@ -499,7 +499,16 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          notification = {
+            window = {
+              winblend = 0,
+            },
+          },
+        },
+      },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -656,6 +665,11 @@ require('lazy').setup({
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      -- Setup mason-lspconfig to automatically enable installed LSPs
+      require('mason-lspconfig').setup({
+        automatic_enable = true,
+      })
 
       for name, server in pairs(servers) do
         vim.lsp.config(name, server)
