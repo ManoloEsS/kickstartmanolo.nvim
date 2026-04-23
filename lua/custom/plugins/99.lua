@@ -7,9 +7,9 @@ return {
 
     _99.setup({
       provider = _99.Providers.OpenCodeProvider,
-      model = "opencode/big-pickle",
+      model = "opencode-go/qwen3.5-plus",
       logger = {
-        level = _99.INFO,
+        level = _99.DEBUG,
         path = '/tmp/' .. basename .. '.99.debug',
         print_on_error = true,
       },

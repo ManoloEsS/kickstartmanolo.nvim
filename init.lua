@@ -362,9 +362,6 @@ require('lazy').setup({
         cond = function() return vim.fn.executable 'make' == 1 end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-
-      -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -743,12 +740,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -789,9 +786,9 @@ require('lazy').setup({
       },
 
       appearance = {
-        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
+        nerd_font_variant = 'normal',
       },
 
       completion = {
@@ -855,6 +852,20 @@ require('lazy').setup({
     ---@type TodoOptions
     ---@diagnostic disable-next-line: missing-fields
     opts = { signs = false },
+  },
+
+  { -- File, filetype, and window picker icons
+    'echasnovski/mini.icons',
+    version = false,
+    opts = {
+      nerd_font_variant = 'normal',
+    },
+    init = function()
+      package.preload['nvim-web-devicons'] = function()
+        require('mini.icons').mock_nvim_web_devicons()
+        return package.loaded['nvim-web-devicons']
+      end
+    end,
   },
 
   { -- Collection of various small independent plugins/modules
